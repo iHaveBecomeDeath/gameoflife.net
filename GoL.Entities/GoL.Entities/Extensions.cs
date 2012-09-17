@@ -5,11 +5,6 @@ namespace GoL.Entities
 {
     public static class Extensions
     {
-        public static bool IsNeighbourWith(this Cell cellInQuestion, Cell potentialNeighbour)
-        {
-            return cellInQuestion.Neighbours.Contains(potentialNeighbour.Id);
-        }
-        
         public static Cell Second(this IEnumerable<Cell> listOfCells)
         {
             return listOfCells.Skip(1).First();
@@ -27,5 +22,25 @@ namespace GoL.Entities
             return listOfCells.Skip(4).First();
         }
 
+        public static List<Cell> Neighbours(this Cell startingCell, List<Cell> livingCells)
+        {
+            return
+                livingCells
+                    .Where(
+                        cell =>
+                            cell.Coordinates.X.IsWithinRangeOf(startingCell.Coordinates.X)
+                            &&
+                            cell.Coordinates.Y.IsWithinRangeOf(startingCell.Coordinates.Y)
+                    )
+                    .ToList();
+        }
+
+        public static bool IsWithinRangeOf(this int originalPosition, int comparativePosition)
+        {
+            return
+                originalPosition == comparativePosition
+                || originalPosition - 1 == comparativePosition
+                || originalPosition + 1 == comparativePosition;
+        }
     }
 }

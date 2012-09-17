@@ -6,17 +6,17 @@ namespace GoL.App
 {
     public class CellProcessor
     {
-        public static void Iterate(List<Cell> listOfLivingCells)
+        public static void Iterate(List<Cell> listOfLivingCells, List<Cell> allCellsThatExist)
         {
-            CalculateTransitions(listOfLivingCells);
+            CalculateTransitions(listOfLivingCells, allCellsThatExist);
             Transition(listOfLivingCells);
         }
 
-        private static void CalculateTransitions(IEnumerable<Cell> listOfLivingCells)
+        private static void CalculateTransitions(List<Cell> listOfLivingCells, List<Cell> allCellsThatExist)
         {
             foreach (var cell in listOfLivingCells)
             {
-                switch (cell.Neighbours.Count)
+                switch (cell.Neighbours(listOfLivingCells).Count)
                 {
                     case 2:
                         cell.TransitionState = CellTransitionState.Remains;
@@ -26,8 +26,14 @@ namespace GoL.App
                         break;
                     default: cell.TransitionState = CellTransitionState.Dies;
                         break;
-                    //TODO : Brought to life!
                 }
+            }
+            // alla som inte är levande just nu
+            foreach (var potentiallyLivingCell in allCellsThatExist.Where(x => x.CurrentState == CellState.Dead))
+            {
+                var neighbourCount = potentiallyLivingCell.Neighbours(listOfLivingCells).Count;
+                if(neighbourCount == 2 || neighbourCount == 3)
+                    potentiallyLivingCell.TransitionState = CellTransitionState.Lives;
             }
         }
 
