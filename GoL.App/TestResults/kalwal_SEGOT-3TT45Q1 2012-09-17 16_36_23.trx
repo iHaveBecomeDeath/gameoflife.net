@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="e938add8-1d0c-4cfe-994c-49a8d0172524" name="kalwal@SEGOT-3TT45Q1 2012-09-17 16:36:23" runUser="KODEXE\kalwal" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="a58baa0d-ae03-49b1-854d-7dff66e1198a">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="kalwal_SEGOT-3TT45Q1 2012-09-17 16_36_23">
+      <DeploymentItem filename="C:\Users\kalwal\documents\visual studio 2010\Projects\GoL.Entities\GoL.Entities\bin\Debug\GoL.Entities.dll" />
+      <DeploymentItem filename="C:\Users\kalwal\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\GoL.App.exe" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-09-17T16:36:23.3698840+02:00" queuing="2012-09-17T16:36:23.4038860+02:00" start="2012-09-17T16:36:23.4668896+02:00" finish="2012-09-17T16:36:23.7239043+02:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="CellsWithOneOrNoNeighboursDie" storage="c:\users\kalwal\documents\visual studio 2010\projects\gol.tests\gol.tests\bin\debug\gol.tests.dll" id="3df3c4b5-72c2-473c-d0ba-e88b59634eed">
+      <Execution id="77207f4c-a9e4-4769-b2a6-b16c8ee8ea72" />
+      <TestMethod codeBase="C:/Users/kalwal/documents/visual studio 2010/Projects/GoL.Tests/GoL.Tests/bin/Debug/GoL.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GoL.Tests.UnitTests, GoL.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="CellsWithOneOrNoNeighboursDie" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="3df3c4b5-72c2-473c-d0ba-e88b59634eed" executionId="77207f4c-a9e4-4769-b2a6-b16c8ee8ea72" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="77207f4c-a9e4-4769-b2a6-b16c8ee8ea72" testId="3df3c4b5-72c2-473c-d0ba-e88b59634eed" testName="CellsWithOneOrNoNeighboursDie" computerName="SEGOT-3TT45Q1" duration="00:00:00.0357477" startTime="2012-09-17T16:36:23.4828905+02:00" endTime="2012-09-17T16:36:23.7079033+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="77207f4c-a9e4-4769-b2a6-b16c8ee8ea72">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method GoL.Tests.UnitTests.CellsWithOneOrNoNeighboursDie threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object.</Message>
+          <StackTrace>    at GoL.Entities.Extensions.IsNeighbourWith(Cell cellInQuestion, Cell potentialNeighbour) in C:\Users\kalwal\documents\visual studio 2010\Projects\GoL.Entities\GoL.Entities\Extensions.cs:line 10
+   at GoL.App.CellRetainer.MakeNeighbours(Cell firstCell, Cell secondCell) in C:\Users\kalwal\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\CellRetainer.cs:line 27
+   at GoL.Tests.UnitTests.CellsWithOneOrNoNeighboursDie() in C:\Users\kalwal\documents\visual studio 2010\Projects\GoL.Tests\GoL.Tests\UnitTests.cs:line 24
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>
