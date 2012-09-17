@@ -1,0 +1,6 @@
+<Modules>
+  <Module PersistentId="6C562C2F-E5D5-4CAB-BCF4-B1DD58B83BBC" ModuleId="ConsoleApplication1" />
+  <Module PersistentId="97AFD511-0CA2-4AC2-BC92-0FFA9BBBF92D" ModuleId="ClassLibrary1" />
+  <Module PersistentId="260397DD-30B6-4E5B-ACF4-B80A956798E8" ModuleId="GoL.Entities" />
+  <Module PersistentId="AC124267-A55B-4677-AFCA-F0C314FA701D" ModuleId="GoL.Tests" />
+</Modules>
