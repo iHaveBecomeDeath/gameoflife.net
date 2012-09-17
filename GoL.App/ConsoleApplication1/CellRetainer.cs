@@ -7,23 +7,30 @@ namespace GoL.App
 {
     public class CellRetainer
     {
-        private static List<Cell> _cells;
+        private static List<Cell> _allCells;
 
-        public static List<Cell> Cells
+        public static List<Cell> LivingCells
         {
-            get { return _cells ?? (_cells = new List<Cell>()); }
+            get
+            {
+                return 
+                    AllCellsInExistence
+                        .Where(
+                            cl => 
+                                cl.CurrentState == CellState.Alive
+                            )
+                        .ToList();
+            }
+        }
+
+        public static List<Cell> AllCellsInExistence
+        {
+            get { return _allCells ?? (_allCells = new List<Cell>()); }
         }
 
         public static Cell CreateCell()
         {
             return new Cell(Guid.NewGuid());
-        }
-
-        public static void MakeNeighbours(Cell firstCell, Cell secondCell)
-        {
-            if (firstCell.IsNeighbourWith(secondCell)) return;
-            firstCell.Neighbours.Add(secondCell.Id);
-            secondCell.Neighbours.Add(firstCell.Id);
         }
 
     }
