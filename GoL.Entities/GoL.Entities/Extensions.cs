@@ -25,14 +25,27 @@ namespace GoL.Entities
         public static List<Cell> Neighbours(this Cell startingCell, List<Cell> livingCells)
         {
             return
-                livingCells
-                    .Where(
-                        cell =>
-                            cell.Coordinates.X.IsWithinRangeOf(startingCell.Coordinates.X)
-                            &&
-                            cell.Coordinates.Y.IsWithinRangeOf(startingCell.Coordinates.Y)
-                    )
-                    .ToList();
+                GetNeighbours(startingCell, livingCells);
+        }
+
+        public static List<Cell> NeighboursIncludingDead(this Cell startingCell, List<Cell> allCellsIncludingDead)
+        {
+            return
+                GetNeighbours(startingCell, allCellsIncludingDead);                    
+        }
+
+        private static List<Cell> GetNeighbours(Cell startingCell, IEnumerable<Cell> listOfCells)
+        {
+            return listOfCells
+                .Where(
+                    cell =>
+                    cell.Coordinates.X.IsWithinRangeOf(startingCell.Coordinates.X)
+                    &&
+                    cell.Coordinates.Y.IsWithinRangeOf(startingCell.Coordinates.Y)
+                    && 
+                    cell.Id != startingCell.Id
+                )
+                .ToList();
         }
 
         public static bool IsWithinRangeOf(this int originalPosition, int comparativePosition)

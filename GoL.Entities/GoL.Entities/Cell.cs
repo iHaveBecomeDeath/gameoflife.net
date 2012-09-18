@@ -43,6 +43,6 @@ namespace GoL.Entities
 
     public enum CellTransitionState
     {
-        Lives, Dies, Remains
+        Remains, Lives, Dies
     }
 }

@@ -1,6 +1,17 @@
 ﻿<RecentFiles>
   <RecentFiles>
-    <File id="AC124267-A55B-4677-AFCA-F0C314FA701D/f:UnitTests.cs" caret="0" fromTop="0" />
+    <File id="6C562C2F-E5D5-4CAB-BCF4-B1DD58B83BBC/f:CellProcessor.cs" caret="315" fromTop="10" />
+    <File id="260397DD-30B6-4E5B-ACF4-B80A956798E8/f:Extensions.cs" caret="127" fromTop="7" />
+    <File id="6C562C2F-E5D5-4CAB-BCF4-B1DD58B83BBC/f:Program.cs" caret="322" fromTop="12" />
+    <File id="260397DD-30B6-4E5B-ACF4-B80A956798E8/f:Cell.cs" caret="843" fromTop="6" />
+    <File id="6C562C2F-E5D5-4CAB-BCF4-B1DD58B83BBC/f:CellRetainer.cs" caret="1204" fromTop="17" />
+    <File id="AC124267-A55B-4677-AFCA-F0C314FA701D/f:UnitTests.cs" caret="876" fromTop="7" />
   </RecentFiles>
-  <RecentEdits />
+  <RecentEdits>
+    <File id="260397DD-30B6-4E5B-ACF4-B80A956798E8/f:Cell.cs" caret="559" fromTop="12" />
+    <File id="6C562C2F-E5D5-4CAB-BCF4-B1DD58B83BBC/f:CellProcessor.cs" caret="315" fromTop="10" />
+    <File id="260397DD-30B6-4E5B-ACF4-B80A956798E8/f:Extensions.cs" caret="127" fromTop="7" />
+    <File id="6C562C2F-E5D5-4CAB-BCF4-B1DD58B83BBC/f:CellRetainer.cs" caret="1204" fromTop="17" />
+    <File id="AC124267-A55B-4677-AFCA-F0C314FA701D/f:UnitTests.cs" caret="5151" fromTop="21" />
+  </RecentEdits>
 </RecentFiles>

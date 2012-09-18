@@ -20,19 +20,24 @@ namespace GoL.Tests
         public void CellsWithOneOrNoNeighboursDie()
         {
             // Arrange
-            for (var i = 0; i < 3; i++)
-                CellRetainer.LivingCells.Add(CellRetainer.CreateCell());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.First(), CellRetainer.LivingCells.Second());
-            var amountWithNoNeighbours = CellRetainer.LivingCells.Count(x => x.Neighbours(CellRetainer.LivingCells).Count == 0);
-            var amountWithOneNeighbour = CellRetainer.LivingCells.Count(x => x.Neighbours(CellRetainer.LivingCells).Count == 1);
+            CellRetainer.CleanSlate();
+            // Inga grannar
+            for (var i = 0; i < 5; i++)
+                CellRetainer.AddCell(new Cell(Guid.NewGuid(), i, i*2));
+            // Två får vara grannar
+            var coordinates = CellRetainer.AllCellsInExistence.First().Coordinates;
+            CellRetainer.AddCell(new Cell(Guid.NewGuid(), coordinates.X, coordinates.Y - 1));
+            var amountWithNoNeighbours = CellRetainer.LivingCells.Count(cell => cell.Neighbours(CellRetainer.LivingCells).Count == 0);
+            var amountWithOneNeighbour = CellRetainer.LivingCells.Count(cell => cell.Neighbours(CellRetainer.LivingCells).Count == 1);
 
             // Act
             CellProcessor.Iterate(CellRetainer.LivingCells, CellRetainer.AllCellsInExistence);
+
             // Assert
 
-            // Assert att två har har en granne
-            // Assert att en har ingen grannet
-            Assert.IsTrue(amountWithNoNeighbours == 1);
+            // Assert att fyra har har en granne
+            // Assert att två har ingen granne
+            Assert.IsTrue(amountWithNoNeighbours == 4);
             Assert.IsTrue(amountWithOneNeighbour == 2);
             // Alla ska nu vara döda
             Assert.IsTrue(CellRetainer.LivingCells.Count(c => c.CurrentState == CellState.Alive) == 0);
@@ -40,29 +45,48 @@ namespace GoL.Tests
         }
 
         [TestMethod]
+        public void NeighboursAreOnlyOneStepApart()
+        {
+            CellRetainer.CleanSlate();
+            CellRetainer.AddCell(new Cell(Guid.NewGuid(), 0, 0));
+            CellRetainer.AddCell(new Cell(Guid.NewGuid(), 0, 1));
+
+            Assert.IsTrue(CellRetainer.LivingCells.First().Neighbours(CellRetainer.LivingCells).Count == 1);
+            Assert.IsTrue(CellRetainer.LivingCells.Second().Neighbours(CellRetainer.LivingCells).Count == 1);
+        }
+
+        [TestMethod]
+        public void CellsWithMoreThanOneStepBetweenAreNotNeighbours()
+        {
+            CellRetainer.CleanSlate();
+            CellRetainer.AddCell(new Cell(Guid.NewGuid(), 0, 0));
+            CellRetainer.AddCell(new Cell(Guid.NewGuid(), 2, 1));
+
+            Assert.IsTrue(CellRetainer.LivingCells.First().Neighbours(CellRetainer.LivingCells).Count == 0);
+            Assert.IsTrue(CellRetainer.LivingCells.Second().Neighbours(CellRetainer.LivingCells).Count == 0);
+        }
+
+        [TestMethod]
         public void CellsWithTwoOrThreeNeighboursLiveOn()
         {
             // Arrange
+            CellRetainer.CleanSlate();
+            // Alla får grannar
             for (var i = 0; i < 5; i++)
-                CellRetainer.LivingCells.Add(CellRetainer.CreateCell());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.First(), CellRetainer.LivingCells.Second());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.First(), CellRetainer.LivingCells.Third());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.Second(), CellRetainer.LivingCells.Fourth());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.Third(), CellRetainer.LivingCells.Fourth());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.Third(), CellRetainer.LivingCells.Fifth());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.Fourth(), CellRetainer.LivingCells.Fifth());
-            var amountWithTwoNeighbours = CellRetainer.LivingCells.Count(x => x.Neighbours.Count == 2);
-            var amountWithThreeNeighbours = CellRetainer.LivingCells.Count(x => x.Neighbours.Count == 3);
+                CellRetainer.AddCell(new Cell(Guid.NewGuid(), i, 0));
+            // En får tre grannar
+            var coordinates = CellRetainer.AllCellsInExistence.Second().Coordinates;
+            CellRetainer.AddCell(new Cell(Guid.NewGuid(), coordinates.X, coordinates.Y - 1));
+            var amountWithTwoNeighbours = CellRetainer.LivingCells.Count(x => x.Neighbours(CellRetainer.LivingCells).Count == 2);
+            var amountWithThreeNeighbours = CellRetainer.LivingCells.Count(x => x.Neighbours(CellRetainer.LivingCells).Count == 3);
 
             // Act
             CellProcessor.Iterate(CellRetainer.LivingCells, CellRetainer.AllCellsInExistence);
             // Assert
 
-            // Assert att två har har en granne
-            // Assert att en har ingen granne
-            Assert.IsTrue(amountWithTwoNeighbours == 3);
-            Assert.IsTrue(amountWithThreeNeighbours == 2);
-            // Alla ska fortfarande leva
+            Assert.IsTrue(amountWithTwoNeighbours == 2);
+            Assert.IsTrue(amountWithThreeNeighbours == 3);
+            // Alla ska fortfarande leva, förutom någon ensam stackare som bara hade en granne
             Assert.IsTrue(CellRetainer.LivingCells.Count(c => c.CurrentState == CellState.Alive) == 5);
         }
 
@@ -70,26 +94,25 @@ namespace GoL.Tests
         public void CellsWithMoreThanThreeNeighboursDie()
         {
             // Arrange
+            CellRetainer.CleanSlate();
+            // Alla får grannar
             for (var i = 0; i < 5; i++)
-                CellRetainer.LivingCells.Add(CellRetainer.CreateCell());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.First(), CellRetainer.LivingCells.Second());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.First(), CellRetainer.LivingCells.Third());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.First(), CellRetainer.LivingCells.Fourth());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.First(), CellRetainer.LivingCells.Fifth());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.Second(), CellRetainer.LivingCells.Third());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.Second(), CellRetainer.LivingCells.Fourth());
-            CellRetainer.MakeNeighbours(CellRetainer.LivingCells.Second(), CellRetainer.LivingCells.Fifth());
-            var amountWithMoreThanThreeNeighbours = CellRetainer.LivingCells.Count(x => x.Neighbours.Count > 3);
+                CellRetainer.AddCell(new Cell(Guid.NewGuid(), i, 0));
+            // Någon får fyra grannar
+            var coordinates = CellRetainer.AllCellsInExistence.Second().Coordinates;
+            CellRetainer.AddCell(new Cell(Guid.NewGuid(), coordinates.X, coordinates.Y - 1));
+            CellRetainer.AddCell(new Cell(Guid.NewGuid(), coordinates.X, coordinates.Y + 1));
+            var cellsWithMoreThanThreeNeighbours = CellRetainer.LivingCells.Where(x => x.Neighbours(CellRetainer.LivingCells).Count > 3).ToList();
 
             // Act
             CellProcessor.Iterate(CellRetainer.LivingCells, CellRetainer.AllCellsInExistence);
             // Assert
 
-            // Assert att två har har en granne
-            // Assert att en har ingen granne
-            Assert.IsTrue(amountWithMoreThanThreeNeighbours == 2);
-            // Tre bör vara kvar, resten har dött av
-            Assert.IsTrue(CellRetainer.LivingCells.Count(c => c.CurrentState == CellState.Alive) == 3);
+            // Assert att två har många grannar
+            Assert.IsTrue(cellsWithMoreThanThreeNeighbours.Count() == 2);
+            // De två bör nu ha dött av
+            Assert.IsFalse(CellRetainer.LivingCells.Select(x => x.Id).Contains(cellsWithMoreThanThreeNeighbours.First().Id));
+            Assert.IsFalse(CellRetainer.LivingCells.Select(x => x.Id).Contains(cellsWithMoreThanThreeNeighbours.Second().Id));
 
         }
 
@@ -97,18 +120,22 @@ namespace GoL.Tests
         public void DeadCellsWithTwoOrThreeNeighboursComeToLife()
         {
             // Arrange
-            CellRetainer.AllCellsInExistence.Add(new Cell(Guid.NewGuid(), 0, 0));
-            CellRetainer.AllCellsInExistence.Add(new Cell(Guid.NewGuid(), 0, 1));
-            CellRetainer.AllCellsInExistence.Add(new Cell(Guid.NewGuid(), 1, 0));
+            CellRetainer.CleanSlate();
+            CellProcessor.Initialize(100, 100);
+            var cellIntheMiddle = CellRetainer.AllCellsInExistence.Single(cell => cell.Coordinates.X == 50 && cell.Coordinates.Y == 50);
+            var cellNeighbours = cellIntheMiddle.NeighboursIncludingDead(CellRetainer.AllCellsInExistence);
+            // Tre levande grannar
+            CellRetainer.MakeCellLive(cellNeighbours.First().Id);
+            CellRetainer.MakeCellLive(cellNeighbours.Second().Id);
+            CellRetainer.MakeCellLive(cellNeighbours.Third().Id);
 
             // Act
             CellProcessor.Iterate(CellRetainer.LivingCells, CellRetainer.AllCellsInExistence);
 
             // Assert
 
-
-            // Tre bör vara kvar, resten har dött av
-            Assert.IsTrue(CellRetainer.LivingCells.Count(c => c.CurrentState == CellState.Alive) == 3);
+            // Vår mittencell med tre levande grannar bör ha "kommit till liv" igen
+            Assert.IsTrue(CellRetainer.LivingCells.Select(cell => cell.Id).Contains(cellIntheMiddle.Id));
 
         }
 
