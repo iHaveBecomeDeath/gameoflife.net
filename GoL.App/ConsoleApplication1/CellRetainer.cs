@@ -39,10 +39,14 @@ namespace GoL.App
                     (cell.Coordinates.X == cellToAdd.Coordinates.X) 
                     && (cell.Coordinates.Y == cellToAdd.Coordinates.Y));
             if (existingCell == null)
+            {
                 AllCellsInExistence.Add(cellToAdd);
+            }
             else
+            {
                 AllCellsInExistence.Remove(existingCell);
                 AllCellsInExistence.Add(cellToAdd);
+            }
             return cellToAdd;
         }
 
