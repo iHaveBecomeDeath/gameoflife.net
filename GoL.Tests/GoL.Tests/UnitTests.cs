@@ -56,6 +56,14 @@ namespace GoL.Tests
         }
 
         [TestMethod]
+        public void ATenByTenGridGives100DeadCells()
+        {
+            CellRetainer.CleanSlate();
+            CellProcessor.Initialize(10,10);
+            Assert.AreEqual(CellRetainer.AllCellsInExistence.Count, 100);
+        }
+
+        [TestMethod]
         public void CellsWithMoreThanOneStepBetweenAreNotNeighbours()
         {
             CellRetainer.CleanSlate();
