@@ -38,7 +38,7 @@ namespace GoL.Entities
 
     public enum CellState
     {
-        Alive, Dead, Transitioning
+        Alive, Dead
     }
 
     public enum CellTransitionState
