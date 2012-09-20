@@ -37,7 +37,7 @@ namespace GoL.App
             Transition(allCellsThatExist);
         }
 
-        private static void CalculateTransitions(List<Cell> listOfLivingCells, List<Cell> allCellsThatExist)
+        private static void CalculateTransitions(List<Cell> listOfLivingCells, IEnumerable<Cell> allCellsThatExist)
         {
             foreach (var cell in listOfLivingCells)
             {

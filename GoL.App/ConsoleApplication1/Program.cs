@@ -1,46 +1,90 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 using GoL.Entities;
 
 namespace GoL.App
 {
     class Program
     {
-        const int Width = 20;
-        const int Height = 20;
+        const int Width = 120;
+        const int Height = 50;
+        const int MaxLivingCells = 300;
+        private const int MinLivingCells = 3;
+
         static void Main()
         {
             //Set up
+            Console.WindowHeight = Height + 1;
+            Console.WindowWidth = Width + 1;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Reset();
+            // Looooop
+            var exitKeyPressed = false;
+            while (!exitKeyPressed)
+            {
+                //Console.WriteLine("Current living cells: " + CellRetainer.LivingCells.Count);
+                DisplayResults();
+                //Thread.Sleep(50);
+                var consoleKey = Console.ReadKey(false).Key;
+                switch (consoleKey)
+                {
+                    case ConsoleKey.Q:
+                        exitKeyPressed = true;
+                        break;
+                    case ConsoleKey.R:
+                        Reset();
+                        break;
+                }
+                CellProcessor.Iterate(CellRetainer.LivingCells, CellRetainer.AllCellsInExistence);
+            }
+        }
+
+        private static void Reset()
+        {
             CellRetainer.CleanSlate();
             CellProcessor.Initialize(Width, Height);
-
-            //Randomize
-
             RandomizeStartingPositions();
-            // Looooop
-            var keyPressed = false;
-            while (!keyPressed)
+        }
+
+        private static void DisplayResults()
+        {
+            Console.Clear();
+            var results = new char[Height, Width];
+            foreach (var cell in CellRetainer.AllCellsInExistence)
             {
-                CellProcessor.Iterate(CellRetainer.LivingCells, CellRetainer.AllCellsInExistence);
-                Console.WriteLine("Current living cells: " + CellRetainer.LivingCells.Count);
-                Thread.Sleep(50);
-                if (Console.ReadKey(false).Key == ConsoleKey.Q)
-                    keyPressed = true;
+                results[cell.Coordinates.Y, cell.Coordinates.X]
+                    = cell.CurrentState == CellState.Alive
+                          ? 'X'
+                          : '.';
             }
-            return;
+
+            for (var i = 0; i < results.GetLength(0); i++)
+            {
+                for (var j =0;j<results.GetLength(1);j++)
+                    Console.Write(results[i,j]);
+                Console.WriteLine();
+            }
         }
 
         private static void RandomizeStartingPositions()
         {
-            // 1-10 startceller (t ex), slumpa fram om de är grannar eller inte
-            var maxLivingCells = new Random().Next(1, 10);
+            var random = new Random();
+            var maxLivingCells = random.Next(MinLivingCells, MaxLivingCells);
             for (var i = 1; i < maxLivingCells; i++)
             {
-                var deadCell = CellRetainer.AllCellsInExistence.SingleOrDefault(cell => cell.Coordinates.X == Width - i - 1 && cell.Coordinates.Y == Height - i - 1);
+                var randX = random.Next(0, Width);
+                var randY = random.Next(0, Height);
+                var deadCell = 
+                    CellRetainer
+                    .AllCellsInExistence
+                    .SingleOrDefault(
+                        cell => 
+                            cell.Coordinates.X == randX && cell.Coordinates.Y == randY);
                 if (deadCell != null)
                     CellRetainer.MakeCellLive(deadCell.Id);
             }
         }
+
     }
 }

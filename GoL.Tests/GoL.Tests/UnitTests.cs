@@ -62,7 +62,7 @@ namespace GoL.Tests
             CellProcessor.Initialize(10,10);
             Assert.AreEqual(CellRetainer.AllCellsInExistence.Count, 100);
         }
-
+        
         [TestMethod]
         public void CellsWithMoreThanOneStepBetweenAreNotNeighbours()
         {

@@ -55,9 +55,5 @@ namespace GoL.App
             AllCellsInExistence.Single(cell => cell.Id == id).CurrentState = CellState.Alive;
         }
 
-        public static void KillCell(Guid id)
-        {
-            AllCellsInExistence.Single(cell => cell.Id == id).CurrentState = CellState.Dead;
-        }
     }
 }
