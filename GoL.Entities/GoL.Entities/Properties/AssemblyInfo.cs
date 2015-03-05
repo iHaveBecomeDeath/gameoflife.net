@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("GoL.Entities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("LBi Sverige AB")]
 [assembly: AssemblyProduct("GoL.Entities")]
-[assembly: AssemblyCopyright("Copyright © LBi Sverige AB 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
