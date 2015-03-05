@@ -1,5 +1,0 @@
-C:\Users\kalwal\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\GoL.App.exe
-C:\Users\kalwal\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\GoL.App.pdb
-C:\Users\kalwal\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\kalwal\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Debug\GoL.App.exe
-C:\Users\kalwal\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Debug\GoL.App.pdb
